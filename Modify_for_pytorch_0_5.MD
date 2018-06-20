@@ -1,5 +1,21 @@
 # Need to make some change in pytorch 0.5
 
+## data file:
+  cp ssd.pytorch/data/coco_labels.txt ~/data/coco/
+
+## ~/.conda/envs/pytorch/lib/python3.6/site-packages/torch/utils/data/sampler.py
+
+  ### line 51
+  
+  original:
+  return iter(torch.randperm(len(self.data_source)).tolist())
+  
+  change to:
+  cpu = torch.device('cpu')
+  return iter(torch.randperm(len(self.data_source), device=cpu).tolist())
+  
+  refer to: https://github.com/amdegroot/ssd.pytorch/issues/155
+
 ## train.py
   
   ### line 165:
@@ -22,19 +38,7 @@
   original: .data[0]
   chage to: .item()
   
-## ~/.conda/envs/pytorch/lib/python3.6/site-packages/torch/utils/data/sampler.py
-
-  ### line 51
-  
-  original:
-  return iter(torch.randperm(len(self.data_source)).tolist())
-  
-  change to:
-  cpu = torch.device('cpu')
-  return iter(torch.randperm(len(self.data_source), device=cpu).tolist())
-  
-  refer to: https://github.com/amdegroot/ssd.pytorch/issues/155
-  
-## data file:
-  cp ssd.pytorch/data/coco_labels.txt ~/data/coco/
-
+## layers/functions/detection.py
+  ### line 49:
+  original: if scores.dim() == 0:
+  change to: if scores.size(0) == 0:
