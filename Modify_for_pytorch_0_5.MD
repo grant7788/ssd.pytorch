@@ -42,3 +42,8 @@
   ### line 49:
   original: if scores.dim() == 0:
   change to: if scores.size(0) == 0:
+
+## eval.py
+  ### line 393:
+  original: if scores.dim() == 0:
+  change to: if scores.size(0) == 0:
