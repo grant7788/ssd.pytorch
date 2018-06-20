@@ -1,4 +1,4 @@
-# Need to make some change in pytorch 0.5
+# Need to make some change in pytorch 0.4
 
 ## data file:
   cp ssd.pytorch/data/coco_labels.txt ~/data/coco/
